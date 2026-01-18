@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+neko-project.store	TRUE	/	FALSE	1999999999	wp_woocommerce_session_7cad3e8608c067bc09d43e47a2b481a6	t_4dd432485d00637a37286fe4095edc%7C1768163483%7C1768077083%7C%24generic%24GQcGM6KxIrY2kBJFJUmeRGH3xx_fad4eblEhMHpO
+neko-project.store	TRUE	/	FALSE	1999999999	woocommerce_cart_hash	4b1fd379a7b44ba67a9ee7b8f621d149
+neko-project.store	TRUE	/	FALSE	1999999999	woocommerce_items_in_cart	1
+

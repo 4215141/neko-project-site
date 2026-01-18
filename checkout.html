@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout</title>
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:rgba(11,17,33,.78);
+      --border:rgba(255,255,255,.10);
+      --muted:rgba(148,163,184,.90);
+      --text:#e2e8f0;
+      --white:#ffffff;
+      --cyan:#22d3ee;
+      --cyan2:#06b6d4;
+      --shadow: 0 25px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(34,211,238,.25), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(6,182,212,.18), transparent 55%),
+        linear-gradient(180deg, #020617 0%, #000814 100%);
+      overflow-x:hidden;
+    }
+    /* Grid overlay */
+    .grid{
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 90px 90px;
+      opacity:.25;
+      mask-image: radial-gradient(800px 460px at 50% 120px, #000 50%, transparent 75%);
+    }
+    main{
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: 28px 18px 48px;
+    }
+    .wrap{
+      width:min(920px, 100%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 14px;
+    }
+    .support{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(11,17,33,.55);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.08) inset;
+      color: rgba(226,232,240,.95);
+      font-size: 12px;
+      text-align:center;
+      width: min(780px, 100%);
+    }
+    .support a{ color: var(--cyan); text-decoration:none; }
+    .card{
+      width: min(780px, 100%);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      padding: 20px;
+    }
+    .section{
+      padding: 14px 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+    }
+    .section + .section{ margin-top: 14px; }
+.h{
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,.92);
+      margin: 0 0 10px;
+      letter-spacing: .2px;
+    }
+.row{ display:flex; gap: 14px; flex-wrap: wrap; }
+    .field{
+      width:100%;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(2,6,23,.35);
+      color: rgba(255,255,255,.92);
+      padding: 0 12px;
+      outline:none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field::placeholder{ color: rgba(148,163,184,.75); }
+    .field:focus{
+      border-color: rgba(34,211,238,.40);
+      box-shadow: 0 0 0 4px rgba(34,211,238,.10);
+    }
+.sub{
+      font-size: 11px;
+      color: rgba(148,163,184,.9);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+.order{
+      display:flex;
+      justify-content:space-between;
+      gap: 18px;
+      align-items:flex-start;
+      flex-wrap: wrap;
+    }
+    .order-left{ min-width: 220px; }
+    .order-item{
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(226,232,240,.95);
+      margin-bottom: 2px;
+      line-height: 1.35;
+    }
+    .order-item small{ color: rgba(148,163,184,.88); font-weight: 600; }
+    .price{
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .kpi{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 8px 0;
+      border-top: 1px dashed rgba(255,255,255,.10);
+      margin-top: 10px;
+      font-size: 12px;
+    }
+    .kpi b{ color: rgba(255,255,255,.95); }
+    .coupon{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(148,163,184,.9);
+    }
+    .coupon a{ color: var(--cyan); text-decoration:none; font-weight: 600; }
+    .coupon a:hover{ text-decoration:underline; }
+
+    .coupon-box{ margin-top:10px; display:none; }
+    .coupon-row{ display:flex; gap:10px; align-items:center; flex-wrap: wrap; }
+    .coupon-row .field{ flex: 1 1 220px; }
+    .coupon-btn{
+      height:42px;
+      padding:0 14px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(2,6,23,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:800;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .coupon-btn:hover{ border-color: rgba(34,211,238,.30); }
+    .coupon-msg{ margin-top:8px; font-size:12px; color: rgba(148,163,184,.95); }
+    .coupon-msg.bad{ color: rgba(248,113,113,.95); }
+    .coupon-msg.ok{ color: rgba(34,211,238,.95); }
+
+    .btn{
+      height: 46px;
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, rgba(34,211,238,1), rgba(6,182,212,1));
+      color: #001018;
+      font-weight: 900;
+      letter-spacing: .6px;
+      box-shadow: 0 0 26px rgba(34,211,238,.22);
+      cursor:pointer;
+      transition: transform .08s, filter .12s;
+      white-space:nowrap;
+    }
+    .btn:hover{ filter: brightness(1.06); }
+    .btn:active{ transform: translateY(1px); }
+/* Payment methods */
+    .pay-list{ display:flex; flex-direction:column; gap: 10px; margin-top: 8px; }
+    .pay-option{
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: rgba(2,6,23,.28);
+      overflow:hidden;
+      cursor:pointer;
+      transition: border-color .15s, background .15s, box-shadow .15s;
+    }
+    .pay-option input{ display:none; }
+    .pay-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+    }
+    .pay-left{ display:flex; flex-direction:column; gap: 2px; }
+    .pay-title{ font-weight: 700; font-size: 13px; color: rgba(226,232,240,.95); display:flex; align-items:center; }
+    .pay-sub{ font-size: 12px; color: rgba(148,163,184,.92); font-weight: 500; }
+    .dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.35);
+      display:inline-block;
+      margin-right: 10px;
+      position: relative;
+      top: 1px;
+    }
+    .pay-option input:checked + .pay-card{
+      background: rgba(34,211,238,.08);
+      box-shadow: 0 0 0 1px rgba(34,211,238,.10) inset;
+    }
+    .pay-option input:checked + .pay-card .dot{
+      border-color: rgba(34,211,238,.90);
+      background: rgba(34,211,238,.85);
+      box-shadow: 0 0 0 3px rgba(34,211,238,.18);
+    }
+    .pay-extra{
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(2,6,23,.25);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .inline-note{
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(148,163,184,.95);
+      line-height: 1.45;
+    }
+    .wallet-box{
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .wallet-row{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .wallet-row:last-child{ border-bottom:none; }
+    .wallet-row code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      padding: 6px 8px;
+      border-radius: 10px;
+      overflow-wrap:anywhere;
+    }
+    .btn-ghost{
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(226,232,240,.95);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .qr{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top: 12px;
+    }
+    .qr img{
+      width: 180px;
+      height: 180px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+    }
+    .rates{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(148,163,184,.9);
+    }
+
+    /* Success modal */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal-card{
+      width: min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(2,6,23,.92);
+      box-shadow: 0 30px 70px rgba(0,0,0,.55);
+      padding: 18px;
+      backdrop-filter: blur(18px);
+    }
+    .modal-title{
+      margin:0 0 8px;
+      font-size: 16px;
+      font-weight: 900;
+      color: rgba(255,255,255,.95);
+    }
+    .modal-desc{
+      margin: 0 0 14px;
+      color: rgba(148,163,184,.95);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .kvs{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      padding: 12px;
+    }
+    .kv{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 8px 0;
+      font-size: 12px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .kv:last-child{ border-bottom:none; }
+    .kv b{ color: rgba(226,232,240,.95); }
+    .close{
+      margin-top: 14px;
+      width: 100%;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(226,232,240,.95);
+      font-weight: 900;
+      cursor:pointer;
+    }
+    .paylink{
+      display:block;
+      width: 100%;
+      text-align:center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(135deg, rgba(34,211,238,.95), rgba(6,182,212,.85));
+      color: rgba(2,6,23,.98);
+      font-weight: 900;
+      text-decoration:none;
+      margin-top: 12px;
+    }
+  
+    .pay-icons img{
+      height: 22px;
+      width: auto;
+      display:block;
+      opacity: .95;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,.25));
+    }
+    .card-mini{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+    }
+    .card-mini .field{ flex: 1; }
+    .wallet-row .field{
+      min-width: 260px;
+      flex: 1;
+    }
+
+
+    /* Redirect overlay (3s) */
+    body.is-redirecting{ overflow:hidden; }
+    .redirect-overlay{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(18px);
+      z-index: 100;
+    }
+    .redirect-card{
+      width: min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(2,6,23,.92);
+      box-shadow: 0 30px 70px rgba(0,0,0,.55);
+      padding: 18px;
+    }
+    .redirect-top{ display:flex; gap:14px; align-items:center; }
+    .spinner{
+      width: 42px; height: 42px;
+      border-radius: 999px;
+      border: 3px solid rgba(255,255,255,.10);
+      border-top-color: rgba(34,211,238,.95);
+      animation: spin .9s linear infinite;
+      box-shadow: 0 0 0 4px rgba(34,211,238,.08);
+      flex: 0 0 auto;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+    .redirect-title{ font-size: 14px; font-weight: 900; color: rgba(255,255,255,.95); }
+    .redirect-sub{ font-size: 12px; color: rgba(148,163,184,.95); margin-top: 2px; }
+    .redirect-box{
+      margin-top: 14px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      padding: 12px;
+    }
+    .redirect-row{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 12px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      align-items:flex-start;
+    }
+    .redirect-row:last-child{ border-bottom:none; }
+    .redirect-row b{ color: rgba(226,232,240,.95); text-align:right; }
+    .progress{
+      margin-top: 14px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .progress span{
+      display:block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(34,211,238,.95), rgba(6,182,212,.85));
+      animation: prog 3s linear forwards;
+    }
+    @keyframes prog{ from{ width:0%; } to{ width:100%; } }
+    .redirect-foot{ margin-top: 10px; font-size: 11px; color: rgba(148,163,184,.90); line-height: 1.45; }
+
+</style>
+</head>
+
+<body>
+  <div class="grid"></div>
+
+  <main>
+    <div class="wrap">
+      <div class="support">
+        <span>Need Help?</span>
+        <a href="https://discord.com/invite/amjwejHC3Q" target="_blank" rel="noopener">Open a ticket in our Discord for support.</a>
+      </div>
+
+      <div class="card">
+        <form id="checkout_form" autocomplete="on">
+          <div class="section">
+            <div class="h">Delivery Email</div>
+            <input class="field" id="email" type="email" placeholder="Email Address" required>
+            <div class="sub">We will deliver your purchase instructions to this email.</div>
+          </div>
+
+          <div class="section">
+            <div class="order">
+              <div class="order-left">
+                <div class="h">Your Order</div>
+                <div class="order-item"><span id="neko_product">—</span> <small id="neko_plan"></small><small class="qty"> × 1</small></div>
+                <div class="coupon">
+                  Have a coupon? <a id="coupon_toggle" href="#">Click here to enter your coupon code</a>
+
+                  <div class="coupon-box" id="coupon_box">
+                    <div class="coupon-row">
+                      <input class="field" id="coupon_code" type="text" placeholder="Coupon code">
+                      <button class="coupon-btn" id="coupon_apply" type="button">Apply</button>
+                    </div>
+                    <div class="coupon-msg" id="coupon_msg" aria-live="polite"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-right">
+                <div class="price" id="neko_subtotal">—</div>
+                <div class="kpi"><span>Total</span> <b id="neko_total">—</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="h">Payment</div>
+
+            
+<div class="pay-list">
+  <label class="pay-option" for="pm_card">
+    <input id="pm_card" type="radio" name="payment_method" value="card" checked>
+    <div class="pay-card">
+      <div class="pay-left">
+        <div class="pay-title"><span class="dot"></span>Credit/Debit Card</div>
+        <div class="pay-sub">Card checkout (you will add provider later)</div>
+      </div>
+      <div class="pay-icons" aria-hidden="true">
+        <img src="https://i.postimg.cc/SQzZfWHT/cards.png" alt="Cards">
+      </div>
+    </div>
+  </label>
+
+  <label class="pay-option" for="pm_crypto">
+    <input id="pm_crypto" type="radio" name="payment_method" value="crypto">
+    <div class="pay-card">
+      <div class="pay-left">
+        <div class="pay-title"><span class="dot"></span>Crypto</div>
+        <div class="pay-sub">Select coin → Place order → pay on next page</div>
+      </div>
+    </div>
+  </label>
+</div>
+
+            
+<div class="pay-extra" id="crypto_wrap" style="display:none;">
+  <select class="field" id="crypto">
+    <option value="USDT" selected>Tether (USDT)</option>
+    <option value="TON">Toncoin (TON)</option>
+    <option value="TRX">TRON (TRX)</option>
+    <option value="BTC">Bitcoin (BTC)</option>
+    <option value="ETH">Ethereum (ETH)</option>
+    <option value="LTC">Litecoin (LTC)</option>
+  </select>
+
+  <div class="inline-note" id="crypto_note" style="display:none;">
+    After you click <b>Place order</b>, you’ll be redirected to the payment page with the wallet address and amount.
+  </div>
+</div>
+          </div>
+
+          <div class="section">
+              
+<div class="pay-extra" id="card_wrap" style="display:none;">
+  <div class="inline-note">
+    After you click <b>Place order</b>, you will be redirected to the secure card payment page.
+  </div>
+</div>
+
+
+            <button class="btn" id="place_order" type="submit" style="width:100%;">PLACE ORDER</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  
+
+  <!-- Redirect overlay -->
+  <div class="redirect-overlay" id="redirect_overlay" aria-hidden="true">
+    <div class="redirect-card">
+      <div class="redirect-top">
+        <div class="spinner" aria-hidden="true"></div>
+        <div>
+          <div class="redirect-title">You will now be redirected to the payment page</div>
+          <div class="redirect-sub">Please wait…</div>
+        </div>
+      </div>
+
+      <div class="redirect-box" style="margin-top:14px;">
+        <div class="redirect-row"><span>Item</span><b id="redirect_item">—</b></div>
+        <div class="redirect-row"><span>Total</span><b id="redirect_total">—</b></div>
+        <div class="redirect-row"><span>Pay with</span><b><span id="redirect_amount">—</span> <span id="redirect_asset">—</span></b></div>
+      </div>
+
+      <div class="progress"><span></span></div>
+      <div class="redirect-foot">If you are not redirected automatically, return to checkout and click Place order again.</div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="success_modal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h3 class="modal-title">Order created</h3>
+      <p class="modal-desc" id="success_desc">
+        Your order details were saved in your browser (static checkout). Connect your payment backend later if needed.
+      </p>
+
+      <div class="kvs">
+        <div class="kv"><span>Email</span> <b id="success_email">—</b></div>
+        <div class="kv"><span>Item</span> <b id="success_item">—</b></div>
+        <div class="kv"><span>Total</span> <b id="success_total">—</b></div>
+        <div class="kv"><span>Method</span> <b id="success_method">—</b></div>
+      </div>
+
+      <div id="wallet_pay_wrap" style="display:none; margin-top:12px;">
+        <div class="kvs" style="margin-top: 12px;">
+          <div class="kv"><span>Send</span> <b><span id="wallet_pay_amount">—</span> <span id="wallet_pay_asset">—</span></b></div>
+          <div class="kv"><span>To</span> <b id="wallet_pay_address">—</b></div>
+        </div>
+
+        <a class="paylink" id="wallet_modal_check" href="#" style="margin-top:12px;" onclick="return false;">CHECK PAYMENT</a>
+        <div class="sub" id="wallet_modal_check_status" style="margin-top:8px;">&nbsp;</div>
+        <div class="sub" style="margin-top:10px;">
+          After sending, click <b>Check payment</b>. You can open a ticket in Discord if you need manual verification.
+        </div>
+      </div>
+</div>
+
+      <button class="close" id="close_success" type="button">Close</button>
+    </div>
+  </div>
+
+  <script src="./assets/neko-pay-config.js"></script>
+  <script src="./assets/neko-checkout.js"></script>
+  <script>
+    nekoCheckout.initCheckoutPage();
+  </script>
+</body>
+</html>
