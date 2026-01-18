@@ -1,0 +1,1461 @@
+﻿<html lang="en" class="antialiased dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neko-Project</title>
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <script src="../code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+      body {
+      background-color: #020617; /* Very dark blue base */
+      color: #e2e8f0;
+      }
+      /* Grid Background */.grid-lines {
+      background-image: linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+      background-size: 33.33% 100%;
+      }
+      /* Animation Keyframe */
+      @keyframes animationIn {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0px); }
+      }.animate-on-scroll { animation-play-state: paused !important; }.animate-on-scroll.animate { animation-play-state: running !important; }
+      /* Custom Scrollbar for Reviews if needed */.no-scrollbar::-webkit-scrollbar { display: none; }.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script>
+      /* Sequence animation on scroll */
+      (function () {
+      const once = true;
+      if (!window.__inViewIO) {
+      window.__inViewIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+      entry.target.classList.add("animate");
+      if (once) window.__inViewIO.unobserve(entry.target);
+      }
+      });
+      }, { threshold: 0.1, rootMargin: "0px 0px -5% 0px" });
+      }
+      window.initInViewAnimations = function (selector = ".animate-on-scroll") {
+      document.querySelectorAll(selector).forEach((el) => {
+      window.__inViewIO.observe(el);
+      });
+      };
+      document.addEventListener("DOMContentLoaded", () => initInViewAnimations());
+      })();
+      /* Pricing Toggle Logic */
+      function switchPricing(type) {
+      const rustBtn = document.getElementById('btn-rust');
+      const spoofBtn = document.getElementById('btn-spoofer');
+      const rustGrid = document.getElementById('grid-rust');
+      const spoofGrid = document.getElementById('grid-spoofer');
+      if(type === 'rust') {
+      rustBtn.classList.replace('text-slate-400', 'text-black');
+      rustBtn.classList.replace('bg-transparent', 'bg-cyan-400');
+      spoofBtn.classList.replace('text-black', 'text-slate-400');
+      spoofBtn.classList.replace('bg-cyan-400', 'bg-transparent');
+      rustGrid.classList.remove('hidden');
+      spoofGrid.classList.add('hidden');
+      } else {
+      spoofBtn.classList.replace('text-slate-400', 'text-black');
+      spoofBtn.classList.replace('bg-transparent', 'bg-cyan-400');
+      rustBtn.classList.replace('text-black', 'text-slate-400');
+      rustBtn.classList.replace('bg-cyan-400', 'bg-transparent');
+      spoofGrid.classList.remove('hidden');
+      rustGrid.classList.add('hidden');
+      }
+      }
+    
+
+      /* Link helpers (work in file:/// and hosted) */
+
+
+      function openGuides(e){
+        if(e) e.preventDefault();
+        try {
+          const u = new URL('downloads/index.html', window.location.href);
+          window.location.href = u.href;
+        } catch (err) {
+          window.location.href = 'downloads/index.html';
+        }
+      }
+</script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <link id="all-fonts-link-font-geist" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist">
+.font-geist { font-family: 'Geist', sans-serif !important; }
+</style><link id="all-fonts-link-font-roboto" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-roboto">
+.font-roboto { font-family: 'Roboto', sans-serif !important; }
+</style><link id="all-fonts-link-font-montserrat" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-montserrat">
+.font-montserrat { font-family: 'Montserrat', sans-serif !important; }
+</style><link id="all-fonts-link-font-poppins" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-poppins">
+.font-poppins { font-family: 'Poppins', sans-serif !important; }
+</style><link id="all-fonts-link-font-playfair" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;display=swap"><style id="all-fonts-style-font-playfair">
+.font-playfair { font-family: 'Playfair Display', serif !important; }
+</style><link id="all-fonts-link-font-instrument-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-instrument-serif">
+.font-instrument-serif { font-family: 'Instrument Serif', serif !important; }
+</style><link id="all-fonts-link-font-merriweather" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&amp;display=swap"><style id="all-fonts-style-font-merriweather">
+.font-merriweather { font-family: 'Merriweather', serif !important; }
+</style><link id="all-fonts-link-font-bricolage" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-bricolage">
+.font-bricolage { font-family: 'Bricolage Grotesque', sans-serif !important; }
+</style><link id="all-fonts-link-font-jakarta" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-jakarta">
+.font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif !important; }
+</style><link id="all-fonts-link-font-manrope" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-manrope">
+.font-manrope { font-family: 'Manrope', sans-serif !important; }
+</style><link id="all-fonts-link-font-space-grotesk" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-space-grotesk">
+.font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }
+</style><link id="all-fonts-link-font-work-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-work-sans">
+.font-work-sans { font-family: 'Work Sans', sans-serif !important; }
+</style><link id="all-fonts-link-font-pt-serif" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-pt-serif">
+.font-pt-serif { font-family: 'PT Serif', serif !important; }
+</style><link id="all-fonts-link-font-geist-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-geist-mono">
+.font-geist-mono { font-family: 'Geist Mono', monospace !important; }
+</style><link id="all-fonts-link-font-space-mono" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&amp;display=swap"><style id="all-fonts-style-font-space-mono">
+.font-space-mono { font-family: 'Space Mono', monospace !important; }
+</style><link id="all-fonts-link-font-quicksand" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-quicksand">
+.font-quicksand { font-family: 'Quicksand', sans-serif !important; }
+</style><link id="all-fonts-link-font-nunito" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&amp;display=swap"><style id="all-fonts-style-font-nunito">
+.font-nunito { font-family: 'Nunito', sans-serif !important; }
+</style><link id="all-fonts-link-font-newsreader" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6.%2072,400.%20800&amp;display=swap"><style id="all-fonts-style-font-newsreader">
+.font-newsreader { font-family: 'Newsreader', serif !important; }
+</style><link id="all-fonts-link-font-google-sans-flex" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-google-sans-flex">
+.font-google-sans-flex { font-family: 'Google Sans Flex', sans-serif !important; }
+</style><link id="all-fonts-link-font-oswald" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-oswald">
+.font-oswald { font-family: 'Oswald', sans-serif !important; }
+</style><link id="all-fonts-link-font-dm-sans" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&amp;display=swap"><style id="all-fonts-style-font-dm-sans">
+.font-dm-sans { font-family: 'DM Sans', sans-serif !important; }
+</style><style id="neko-unify-nav">
+  /* Unify top navbar typography like main page */
+  .neko-topnav { font-size: 14px; }
+  .neko-topnav .nav-item { font-size: 14px !important; font-weight: 500 !important; }
+  .neko-topnav .nav-item:hover { opacity: 0.95; }
+  .neko-logo { font-size: 18px !important; font-weight: 500 !important; color: #fff !important; letter-spacing: -0.01em; }
+</style>
+</head>
+  <body class="min-h-screen overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-50 font-geist pt-32 relative">
+    <!-- Background (component) added by Aura -->
+    <div class="aura-background-component fixed top-0 w-full h-screen -z-10 saturate-50" data-alpha-mask="24" style="pointer-events:none;  mask-image: linear-gradient(to bottom, transparent, black 0%, black 24%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 0%, black 24%, transparent)">
+      <div class="aura-background-component top-0 w-full -z-10 absolute h-full">
+        <div data-us-project="NMlvqnkICwYYJ6lYb064" class="absolute w-full h-full left-0 top-0 -z-10"></div>
+        <script type="text/javascript">
+          !function(){if(!window.UnicornStudio){window.UnicornStudio={isInitialized:!1};var i=document.createElement("script");i.src="../cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js%40v1.4.29/dist/unicornStudio.umd.js",i.onload=function(){window.UnicornStudio.isInitialized||(UnicornStudio.init(),window.UnicornStudio.isInitialized=!0)},(document.head || document.body).appendChild(i)}}();
+        </script>
+      </div>
+    </div>
+    <!-- Background Gradient -->
+    <div class="fixed top-0 w-full mix-blend-screen -z-20 h-[800px]" style="background: radial-gradient(circle at 50% 0%, rgba(6,182,212,0.15), transparent 70%);"></div>
+    <!-- Background Grid Lines -->
+    <div class="fixed inset-0 pointer-events-none z-0 mx-auto max-w-7xl grid-lines hidden md:block border-r border-l border-cyan-500/[0.05]"></div>
+    <!-- Floating Glass Pill Navigation -->
+    <div class="fixed flex animate-on-scroll [animation:animationIn_0.8s_ease-out_0s_both] animate z-50 pr-4 pl-4 top-6 right-0 left-0 justify-center" style="pointer-events:auto; z-index:9999;">
+  <nav class="neko-topnav flex md:gap-12 bg-[#020617]/80 w-full h-14 max-w-5xl border-white/10 border rounded-full mr-auto ml-auto pr-3 pl-6 shadow-lg backdrop-blur-xl gap-x-6 gap-y-6 items-center justify-between">
+    <div class="flex items-center gap-2">
+      <span class="flex items-center gap-2 text-lg font-medium text-white tracking-tight">
+            <span class="neko-logo cursor-pointer select-none" onclick="window.location.href='index.html'" role="button"><img src="https://i.postimg.cc/yscsNq4M/912a9951-bd1c-47f8-b706-0700e44786b3-removebg-preview.png" alt="Neko-Project logo" style="height:28px;width:auto;display:block;"></span>
+          </span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+      <div onclick="window.smoothScrollTo(event, 'pricing')" class="hover:text-cyan-400 transition-colors cursor-pointer nav-item">
+        Pricing
+      </div>
+      <div onclick="window.scrollToSection(event, 'status', 'System Status')" class="hover:text-cyan-400 transition-colors cursor-pointer nav-item">
+        Status
+      </div>
+      <a href="https://discord.com/invite/amjwejHC3Q" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors cursor-pointer nav-item">Support</a>
+      <div onclick="window.scrollToSection(event, 'faq', 'Frequently Asked Questions')" class="hover:text-cyan-400 transition-colors cursor-pointer nav-item">
+        FAQ
+      </div>
+      <div onclick="window.scrollToSection(event, 'reviews', 'Trusted by')" class="hover:text-cyan-400 transition-colors cursor-pointer nav-item">
+        Reviews
+      </div>
+    </div>
+    <div class="flex text-sm font-medium gap-x-3 gap-y-3 items-center">
+      <div onclick="openGuides(event)" role="button" tabindex="0" class="hover:bg-cyan-500/10 transition-all flex gap-x-2 gap-y-x-2 items-center text-sm font-medium text-cyan-50 bg-gradient-to-b from-cyan-500/20 via-cyan-500/5 to-cyan-500/10 border-cyan-500/20 border rounded-full pt-2 pr-4 pb-2 pl-4 shadow-[0px_1px_0px_0px_rgba(34,211,238,0.2)_inset] cursor-pointer">
+        <span class="text-xs font-medium text-cyan-200 tracking-tight nav-item">
+              Guides
+            </span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download w-[16px] h-[16px]" style="color: rgb(34, 211, 238); width: 16px; height: 16px;">
+          <path d="M12 7v14"></path>
+          <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </nav>
+  <script>
+    // Scroll to ID (Pricing)
+        window.smoothScrollTo = function(e, id) { 
+          if(e) e.preventDefault(); 
+          const target = document.getElementById(id); 
+          if (target) { 
+            const offset = 100; 
+            const elementPosition = target.getBoundingClientRect().top; 
+            const offsetPosition = elementPosition + window.scrollY - offset; 
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' }); 
+            history.pushState(null, null, '#' + id); 
+          } 
+        }; 
+
+        // Scroll to Text Content (Status, FAQ, Reviews)
+        window.scrollToSection = function(e, hash, text) {
+          if(e) e.preventDefault();
+          const target = Array.from(document.querySelectorAll('h2')).find(el => el.textContent.includes(text));
+          if (target) {
+            const offset = 100;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.scrollY - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            history.pushState(null, null, '#' + hash);
+          }
+        };
+
+        // Handle initial hash navigation
+        (function() { 
+          const hash = window.location.hash;
+          if (hash) { 
+            // Delay slightly to ensure layout is stable
+            setTimeout(() => { 
+              if (hash === '#reviews') window.scrollToSection(null, 'reviews', 'Trusted by');
+              else if (hash === '#status') window.scrollToSection(null, 'status', 'System Status');
+              else if (hash === '#faq') window.scrollToSection(null, 'faq', 'Frequently Asked Questions');
+              else if (hash === '#pricing') window.smoothScrollTo(null, 'pricing');
+            }, 150); 
+          } 
+        })();
+  </script>
+</div>
+    <!-- Main Content -->
+    <main class="z-10 max-w-7xl mr-auto ml-auto pt-12 pr-6 pb-20 pl-6 relative">
+      <!-- Hero Header -->
+      <div class="mb-24">
+        <div class="text-center max-w-5xl mr-auto ml-auto">
+          <div class="inline-flex animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] animate text-xs font-medium text-cyan-400 bg-cyan-950/30 border-cyan-500/20 border rounded-full mb-8 pt-1 pr-3 pb-1 pl-3 gap-x-2 gap-y-2 items-center">
+            Undetect for 2026
+          </div>
+          <h1 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] leading-[0.9] md:text-8xl lg:text-8xl animate text-5xl font-medium text-white tracking-tighter mb-8">
+            Dominate
+            <span class="relative inline-block">
+              the
+              
+            </span>
+            <br class="hidden md:block">
+            <span class="transition-colors hover:text-white duration-500 text-sky-400">
+              competition
+            </span>
+          </h1>
+          <p class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] md:text-xl leading-relaxed animate text-lg font-light text-slate-400 tracking-tight max-w-2xl mr-auto mb-10 ml-auto">
+            The most advanced undetect software marketplace. Featuring
+            high-performance overlay, aim practice, and enterprise-level security for
+            Arc Raiders, Roblox, Rust, and more.
+          </p>
+          <!-- LIVE STATUS SECTION -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.45s_both] flex animate w-full mb-12 justify-center" id="systems">
+            <div class="inline-flex flex-wrap sm:flex-nowrap gap-4 sm:gap-6 sm:rounded-full transition-all hover:border-white/20 bg-[#020617]/50 border-white/10 border rounded-2xl pt-2.5 pr-5 pb-2.5 shadow-sm backdrop-blur-sm gap-x-4 gap-y-4 items-center justify-center">
+              <!-- Status -->
+              <div class="flex items-center gap-2.5"></div>
+              <!-- Divider -->
+              <!-- System Operational Status -->
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-medium text-slate-500">Systems</span>
+                <span class="flex items-center gap-1.5 text-xs font-medium text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.15)] rounded-full px-2 py-0.5 bg-emerald-500/5 border border-emerald-500/10">
+                  <span class="relative flex h-1.5 w-1.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                  </span>
+                  Operational
+                </span>
+              </div>
+              <!-- Divider -->
+              <div class="hidden sm:block w-px h-4 bg-white/10"></div>
+              <!-- Uptime -->
+              <div class="flex items-center gap-2.5">
+                <span class="text-xs font-medium text-slate-500">Uptime</span>
+                <span class="flex items-center gap-1.5 text-xs font-medium text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.15)] rounded-full px-2 py-0.5 bg-emerald-500/5 border border-emerald-500/10">
+                  99.99%
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- Action Buttons -->
+          <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] flex flex-col sm:flex-row gap-4 animate gap-x-4 gap-y-4 items-center justify-center">
+            <!-- Primary Action Button -->
+            <button onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'});" class="group relative flex items-center justify-center gap-2 h-[52px] w-full sm:w-auto px-8 rounded-full bg-cyan-400 text-black font-semibold text-sm tracking-tight transition-all duration-300 hover:bg-cyan-300 hover:scale-[1.02] hover:shadow-[0_0_30px_-5px_rgba(34,211,238,0.6)] active:scale-95 hover:-translate-y-1 shadow-[0_0_20px_-5px_rgba(34,211,238,0.3)]" role="button">
+              <span class="relative z-10">Shop Now</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="relative z-10 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110 w-[16px] h-[16px]" data-lucide="key-round" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(0, 0, 0); width: 16px; height: 16px;">
+                <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" class=""></path>
+                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+              </svg>
+              <!-- Subtle Inner Ring/Highlight -->
+              <div class="absolute inset-0 rounded-full ring-1 ring-white/20 group-hover:ring-white/40 transition-colors duration-300"></div>
+            </button>
+            <!-- Secondary Action Button -->
+            <a href="https://discord.com/invite/amjwejHC3Q" target="_blank" rel="noopener noreferrer" class="group flex items-center justify-center gap-2 sm:w-auto border-white/[0.08] transition-all duration-300 hover:bg-white/[0.08] hover:text-white hover:border-cyan-500/30 hover:shadow-[0_0_30px_-10px_rgba(6,182,212,0.15)] hover:scale-[1.02] active:scale-95 hover:-translate-y-1 text-sm font-medium text-slate-200 tracking-tight w-full h-[52px] border rounded-full pr-8 pl-8 relative backdrop-blur-sm cursor-pointer"><span class="">Join Discord</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" data-lucide="arrow-up-right">
+                <path d="M7 7h10v10"></path>
+                <path d="M7 17 17 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Detailed Features Section -->
+    <div class="bg-[#020617] border-white/5 border-t border-b relative" id="features">
+      <div class="z-10 max-w-7xl mr-auto ml-auto pt-24 pr-6 pb-24 pl-6 relative">
+        <div class="flex flex-col md:flex-row md:items-end gap-6 mb-16 pt-5 pr-2 pl-2 gap-x-6 gap-y-6 items-start justify-between">
+          <div class="">
+            <div class="flex items-center gap-3 text-[10px] font-mono text-cyan-500 uppercase tracking-[0.2em] mb-4">
+              <span class="flex h-1.5 w-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+              <span class="">Why Choose Us</span>
+            </div>
+            <h2 class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] md:text-6xl leading-[0.95] text-5xl font-medium text-white tracking-tighter animate">
+              Store
+              <span class="bg-clip-text text-transparent bg-gradient-to-br from-cyan-300 to-cyan-600">
+                Advantages.
+              </span>
+            </h2>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          <!-- Column 1: Security -->
+          <div class="group relative rounded-2xl bg-white/[0.02] border border-white/[0.06] p-8 hover:bg-white/[0.04] hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_30px_-15px_rgba(6,182,212,0.15)]">
+            <!-- Hover Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+            <div class="relative">
+              <!-- Icon -->
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 shadow-[0_0_15px_-3px_rgba(6,182,212,0.15)] group-hover:scale-110 group-hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.4)] transition-all duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check w-[20px] h-[20px]" data-lucide="shield-check" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(34, 211, 238); width: 20px; height: 20px;">
+                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-medium text-white mb-6 tracking-tight group-hover:text-cyan-50 transition-colors">
+                Safety First
+              </h3>
+              <ul class="space-y-3.5">
+                <li class="flex gap-3 group-hover:text-slate-300 transition-colors duration-300 text-sm text-slate-400 gap-x-3 gap-y-3 items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5" class=""></path>
+                  </svg>
+                  undetect on Anti-Cheats
+                </li>
+                
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:text-cyan-400 transition-colors w-[14px] h-[14px]" data-icon-replaced="true" style="color: rgb(34, 211, 238); width: 14px; height: 14px;">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  Kernel-Level Security
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  Daily Status Monitoring
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+          <!-- Column 2: Instant Access -->
+          <div class="group relative rounded-2xl bg-white/[0.02] border border-white/[0.06] p-8 hover:bg-white/[0.04] hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_30px_-15px_rgba(6,182,212,0.15)]">
+            <!-- Hover Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+            <div class="relative">
+              <!-- Icon -->
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 shadow-[0_0_15px_-3px_rgba(6,182,212,0.15)] group-hover:scale-110 group-hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.4)] transition-all duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="" data-lucide="mail-check" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(34, 211, 238);">
+                  <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"></path>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  <path d="m16 19 2 2 4-4"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-medium text-white mb-6 tracking-tight group-hover:text-cyan-50 transition-colors">
+                Instant Access
+              </h3>
+              <ul class="space-y-3.5">
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  Instant Key Delivery
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  One-Click installer Download
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  No Complex Installation
+                </li>
+                
+                
+              </ul>
+            </div>
+          </div>
+          <!-- Column 3: Support -->
+          <div class="group relative rounded-2xl bg-white/[0.02] border border-white/[0.06] p-8 hover:bg-white/[0.04] hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_0_30px_-15px_rgba(6,182,212,0.15)]">
+            <!-- Hover Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/[0.03] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+            <div class="relative">
+              <!-- Icon -->
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 shadow-[0_0_15px_-3px_rgba(6,182,212,0.15)] group-hover:scale-110 group-hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.4)] transition-all duration-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-headset w-[20px] h-[20px]" data-lucide="hand-helping" data-icon-set="lucide" data-icon-replaced="true" style="color: rgb(34, 211, 238); width: 20px; height: 20px;">
+                  <path d="M11 12h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 14"></path>
+                  <path d="m7 18 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"></path>
+                  <path d="m2 13 6 6"></path>
+                </svg>
+              </div>
+              <h3 class="text-lg font-medium text-white mb-6 tracking-tight group-hover:text-cyan-50 transition-colors">
+                Premium Support
+              </h3>
+              <ul class="space-y-3.5">
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  24/7 Live Chat
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  Active Discord Community
+                </li>
+                <li class="flex items-center gap-3 text-sm text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-500/50 group-hover:text-cyan-400 transition-colors">
+                    <path d="M20 6 9 17l-5-5"></path>
+                  </svg>
+                  Verified Customer Reviews
+                </li>
+                
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Video & Pricing Section -->
+    <div id="pricing" class="bg-[#020617] border-white/5 border-b relative">
+      <div class="z-10 max-w-7xl mr-auto ml-auto pt-24 pr-6 pb-24 pl-6 relative">
+        <!-- Section Header with clear instructions -->
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <div class="inline-flex gap-2 text-[10px] uppercase font-bold text-cyan-400 tracking-wider bg-cyan-500/10 border-cyan-500/20 border rounded-full mb-6 pt-1 pr-3 pb-1 pl-3 shadow-[0_0_15px_-3px_rgba(6,182,212,0.2)] gap-x-2 gap-y-2 items-center">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)] animate-pulse"></span>
+            Step 1: Select Game
+          </div>
+          <h2 class="text-4xl md:text-5xl font-medium text-white tracking-tighter mb-4">
+            Choose Your
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-600">
+              Game.
+            </span>
+          </h2>
+          <p class="leading-relaxed text-lg font-light text-slate-400">
+            Click on a game card below to view available cheats and pricing.
+          </p>
+        </div>
+        <!-- Compact Category Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative gap-x-5 gap-y-5">
+          <div class="group relative h-[180px] rounded-xl overflow-hidden bg-[#0A0A0A] border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)] transition-all duration-300">
+            <div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1629946832022-c327f74956e0?w=2160&amp;q=80');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent"></div>
+            <div class="flex flex-col z-10 cursor-pointer h-full bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/eebf49f0-27db-4de5-a76d-b2bfc195c4e0_800w.jpg)] bg-cover pt-5 pr-5 pb-5 pl-5 relative justify-between" onclick="window.location.href='arc-raiders/index.html'" role="button">
+              <div class="flex justify-between items-start">
+                <div class="flex group-hover:scale-105 transition-transform text-sky-500 bg-sky-600/30 w-10 h-10 border-sky-400/20 border rounded-lg shadow-[0_0_15px_-5px_rgba(168,85,247,0.3)] items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px] text-sky-500" data-lucide="key-round" data-icon-set="lucide" data-icon-replaced="true" style="width: 20px; height: 20px;">
+                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                  </svg>
+                </div>
+                <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase rounded-full shadow-[0_0_10px_-2px_rgba(16,185,129,0.3)]">
+                  undetect
+                </span>
+              </div>
+              <div class="">
+                <h3 class="group-hover:text-cyan-50 transition-colors text-xl font-semibold text-white tracking-tight">
+                  Arc Raiders
+                </h3>
+                <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-1 group-hover:text-cyan-400 transition-colors">
+                  <span class="">View Products</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group relative h-[180px] rounded-xl overflow-hidden bg-[#0A0A0A] border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)] transition-all duration-300">
+            <div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80'); filter: hue-rotate(15deg);"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent"></div>
+            <div class="flex flex-col bg-center z-10 cursor-pointer h-full bg-[url(https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/da9f1ce8-d170-47f3-9cf9-7da60102f972_3840w.jpg)] bg-contain pt-5 pr-5 pb-5 pl-5 relative blur-none justify-between" onclick="window.location.href='rust/index.html'" role="button">
+              <div class="flex items-start justify-between">
+                <div class="flex group-hover:scale-105 transition-transform text-sky-500 bg-sky-600/30 w-10 h-10 border-sky-400/20 border rounded-lg shadow-[0_0_15px_-5px_rgba(168,85,247,0.3)] items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px] text-sky-500" data-lucide="key-round" data-icon-set="lucide" data-icon-replaced="true" style="width: 20px; height: 20px;">
+                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                  </svg>
+                </div>
+                <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase rounded-full shadow-[0_0_10px_-2px_rgba(16,185,129,0.3)]">
+                  undetect
+                </span>
+              </div>
+              <div class="">
+                <h3 class="text-xl font-semibold text-white tracking-tight group-hover:text-cyan-50 transition-colors">
+                  Rust
+                </h3>
+                <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-1 group-hover:text-cyan-400 transition-colors">
+                  <span class="">View Products</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group relative h-[180px] rounded-xl overflow-hidden bg-[#0A0A0A] border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)] transition-all duration-300 cursor-pointer" onclick="window.location.href='roblox/index.html'">
+            <div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://pic.clubic.com/v1/images/2134414/raw');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent"></div>
+            <div class="flex flex-col bg-center z-10 h-full bg-[url(https://pic.clubic.com/v1/images/2134414/raw)] bg-cover pt-5 pr-5 pb-5 pl-5 relative justify-between">
+              <div class="flex items-start justify-between">
+                <div class="flex group-hover:scale-105 transition-transform text-sky-500 bg-sky-600/30 w-10 h-10 border-sky-400/20 border rounded-lg shadow-[0_0_15px_-5px_rgba(168,85,247,0.3)] items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px] text-sky-500" data-lucide="key-round" data-icon-set="lucide" data-icon-replaced="true" style="width: 20px; height: 20px;">
+  <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+  <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+</svg>
+                </div>
+                <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase rounded-full shadow-[0_0_10px_-2px_rgba(16,185,129,0.3)]">
+                  undetect
+                </span>
+              </div>
+              <div class="">
+                <h3 class="group-hover:text-cyan-50 transition-colors text-xl font-semibold text-white tracking-tight">Roblox</h3>
+                <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-1 group-hover:text-cyan-400 transition-colors">
+                  <span class="">Available</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="group relative h-[180px] rounded-xl overflow-hidden bg-[#0A0A0A] border border-white/10 hover:border-cyan-500/50 hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.15)] transition-all duration-300">
+            <div class="absolute inset-0 bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700" style="background-image: url('https://images.unsplash.com/photo-1640906152676-dace6710d24b?w=2160&amp;q=80');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent"></div>
+            <div class="flex flex-col bg-center cursor-pointer z-10 h-full bg-[url(https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&amp;q=80)] bg-cover pt-5 pr-5 pb-5 pl-5 relative justify-between" onclick="window.location.href='hwid-spoofer/index.html'" role="button">
+              <div class="flex items-start justify-between">
+                <div class="flex group-hover:scale-105 transition-transform text-sky-500 bg-sky-600/30 w-10 h-10 border-sky-400/20 border rounded-lg shadow-[0_0_15px_-5px_rgba(168,85,247,0.3)] items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px] text-sky-500" data-lucide="key-round" data-icon-set="lucide" data-icon-replaced="true" style="width: 20px; height: 20px;">
+                    <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+                    <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                  </svg>
+                </div>
+                <span class="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold uppercase rounded-full shadow-[0_0_10px_-2px_rgba(16,185,129,0.3)]">
+                  undetect
+                </span>
+              </div>
+              <div class="">
+                <h3 class="group-hover:text-cyan-50 transition-colors text-xl font-semibold text-white tracking-tight">
+                  Spoofer
+                </h3>
+                <div class="flex items-center gap-1.5 text-xs text-slate-400 mt-1 group-hover:text-cyan-400 transition-colors">
+                  <span class="">View Products</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Trust Indicator -->
+        <div class="flex mt-8 justify-center">
+          <div class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.05]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500" data-lucide="shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            <p class="text-[10px] font-medium text-slate-400">
+              Instant delivery immediately after payment
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Reviews Section -->
+    <div class="border-b border-white/5 bg-[#020617] py-24 overflow-hidden relative">
+        <div class="z-10 prh62rzooxu0 max-w-7xl mr-auto ml-auto relative">
+    <!-- Styles for 3D Tilt Effect & Animations -->
+    <style class="">
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transform: perspective(1000px);
+        }
+        .tilt-inner {
+            transform: translateZ(20px);
+        }
+        .glare {
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 55%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+        @keyframes slideUpFade {
+            0% { opacity: 0; transform: perspective(1000px) translateY(40px) scale(0.96); }
+            100% { opacity: 1; transform: perspective(1000px) translateY(0) scale(1); }
+        }
+        .review-enter {
+            animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        /* Custom Scrollbar for Modal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+
+    <!-- Header Section -->
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div class="animate-on-scroll [animation:animationIn_0.8s_ease-out_0s_both] animate">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/20 border border-cyan-500/20 text-cyan-400 text-[11px] font-medium tracking-wide uppercase mb-5 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class=""><path d="M12 21.37z"></path><path d="M12 21.37z"></path><path d="M12 21.37C6.22 16.53 2 12.83 2 8.5A5.45 5.45 0 0 1 7.5 3 5.4 5.4 0 0 1 12 5.5 5.4 5.4 0 0 1 16.5 3 5.45 5.45 0 0 1 22 8.5c0 4.33-4.22 8.03-10 12.87z" class="fill-current"></path></svg>
+                <span class="">Wall of Love</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-medium text-white tracking-tighter mb-4">Trusted by <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Community.</span></h2>
+            <div class="flex items-center gap-4">
+                <div class="flex text-cyan-400 gap-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <span class="w-px h-4 bg-white/10"></span>
+                <span class="text-sm font-medium text-slate-400 tracking-tight">4.9/5 Rating <span class="text-slate-600 px-1">&#8226;</span> 1,500+ Reviews</span>
+            </div>
+        </div>
+        
+        <!-- Interactive Button (Triggers Modal) -->
+        <button onclick="window.toggleReviewsModal(true)" class="group animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] flex border-white/[0.08] hover:bg-cyan-500/10 hover:border-cyan-500/30 hover:text-cyan-400 transition-all duration-300 hover:shadow-[0_0_20px_-5px_rgba(6,182,212,0.3)] cursor-pointer active:scale-95 outline-none text-sm font-medium text-slate-300 border rounded-full pt-2.5 pr-4 pb-2.5 pl-5 gap-x-2 gap-y-2 items-center animate" id="load-more-btn">
+            <span class="" id="load-more-text">See more reviews</span> 
+            <svg id="load-more-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-y-0.5 transition-transform"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+        </button>
+    </div>
+
+    <!-- Masonry Grid with 3D Effect (Initial 6) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative gap-x-6 gap-y-6" style="perspective: 2000px" id="reviews-grid">
+        <!-- Review 1 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-cyan-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.1s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="relative z-10 tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-900/40 to-cyan-950 flex items-center justify-center text-xs font-bold text-cyan-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(34,211,238,0.15)] group-hover:scale-105 transition-transform duration-500">AM</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-cyan-50 transition-colors">Alex M.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-cyan-500/50 transition-colors">Roblox &#8226; Month</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-cyan-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class=""><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">“The instructions were clear and easy to follow. Everything worked smoothly, and support replied quickly when I had a question.”</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-indigo-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(99,102,241,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.2s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="relative z-10 tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-900/40 to-indigo-950 flex items-center justify-center text-xs font-bold text-indigo-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(129,140,248,0.15)] group-hover:scale-105 transition-transform duration-500">JD</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-indigo-50 transition-colors">John D.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-indigo-400/50 transition-colors">Spoofer &#8226; Lifetime</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-indigo-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">"Was HWID banned for 2 months. Bought the spoofer, followed instructions, playing on main now with no issues."</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-emerald-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.3s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="relative z-10 tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-900/40 to-emerald-950 flex items-center justify-center text-xs font-bold text-emerald-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(52,211,153,0.15)] group-hover:scale-105 transition-transform duration-500">SK</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-emerald-50 transition-colors">Sarah K.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-emerald-500/50 transition-colors">Rust &#8226; Month</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-emerald-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class=""><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">"Best external I've used hands down. The silent aim is insanely smooth and doesn't look snappy on recordings."</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-purple-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.4s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="z-10 relative tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-900/40 to-purple-950 flex items-center justify-center text-xs font-bold text-purple-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(192,132,252,0.15)] group-hover:scale-105 transition-transform duration-500">MR</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-purple-50 transition-colors">Mike R.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-purple-500/50 transition-colors">Roblox &#8226; Week</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-purple-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class=""><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z" class=""></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">"Support team is actually helpful. Had an issue with my antivirus blocking the loader and they fixed it in 5 mins."</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-orange-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(251,146,60,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.5s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="relative z-10 tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-900/40 to-orange-950 flex items-center justify-center text-xs font-bold text-orange-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(251,146,60,0.15)] group-hover:scale-105 transition-transform duration-500">CP</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-orange-50 transition-colors">Chris P.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-orange-500/50 transition-colors">Rust &#8226; Lifetime</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-orange-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">"Been using for 3 wipes straight. No bans. The debug cam feature saved my base twice LOL."</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="tilt-card group border-white/[0.06] hover:border-blue-500/30 transition-all duration-300 ease-out hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.1)] animate-on-scroll [animation:animationIn_0.8s_ease-out_0.6s_both] border rounded-2xl px-6 py-6 relative animate" data-tilt-bound="true">
+             <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+             <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+             <div class="relative z-10 tilt-inner">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3.5">
+                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-900/40 to-blue-950 flex items-center justify-center text-xs font-bold text-blue-400 ring-1 ring-white/10 shadow-[0_0_15px_-3px_rgba(96,165,250,0.15)] group-hover:scale-105 transition-transform duration-500">DW</div>
+                         <div class="">
+                            <div class="text-sm font-medium text-white group-hover:text-blue-50 transition-colors">David W.</div>
+                            <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-blue-500/50 transition-colors">Spoofer &#8226; Month</div>
+                         </div>
+                    </div>
+                    <div class="text-slate-800 group-hover:text-blue-500/20 transition-colors duration-500">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                    </div>
+                </div>
+                <div class="flex gap-0.5 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" class="text-cyan-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                </div>
+                <p class="leading-relaxed group-hover:text-slate-300 transition-colors duration-300 text-sm text-slate-400">"Spoofer worked perfectly. Easy setup, stable results, and no ban issues since using it."</p>
+                <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    
+    <!-- MODAL FOR ALL REVIEWS -->
+    <div id="reviews-modal" class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300" aria-hidden="true">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-[#020617]/90 backdrop-blur-md cursor-pointer" onclick="window.toggleReviewsModal(false)"></div>
+        
+        <!-- Modal Content -->
+        <div class="absolute inset-4 md:inset-10 lg:inset-x-24 lg:inset-y-12 bg-[#0A0A0A] border border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modal-content">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-6 py-5 md:px-8 md:py-6 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur z-20">
+                <div class="flex flex-col">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white tracking-tight">All Reviews</h3>
+                    <p class="text-sm text-slate-400">Showing <span class="text-cyan-400">1,500+</span> verified user reviews</p>
+                </div>
+                <button onclick="window.toggleReviewsModal(false)" class="p-2 rounded-full hover:bg-white/10 text-slate-400 hover:text-white transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                </button>
+            </div>
+            
+            <!-- Modal Scroll Area -->
+            <div id="modal-grid-container" class="overflow-y-auto p-6 md:p-8 custom-scrollbar relative z-10">
+                <div id="modal-reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+                    <!-- Dynamic Content Will Be Injected Here -->
+                </div>
+            </div>
+            
+            <!-- Modal Footer Gradient -->
+            <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0A0A0A] to-transparent pointer-events-none z-20"></div>
+        </div>
+    </div>
+    
+    <!-- Script for 3D Tilt & Modal Functionality -->
+    <script>
+    (function() {
+        // --- 3D TILT LOGIC ---
+        const initTilt = (container = document) => {
+            const cards = container.querySelectorAll('.tilt-card');
+            cards.forEach(card => {
+                if(card.dataset.tiltBound) return;
+                card.dataset.tiltBound = "true";
+                
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -4;
+                    const rotateY = ((x - centerX) / centerX) * 4;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    
+                    const glare = card.querySelector('.glare');
+                    if(glare) {
+                        glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.08), transparent 55%)`;
+                        glare.style.opacity = '1';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                     const glare = card.querySelector('.glare');
+                    if(glare) {
+                        glare.style.opacity = '0';
+                    }
+                });
+            });
+        };
+        
+        initTilt();
+        
+        // --- MODAL & GENERATOR LOGIC ---
+        window.toggleReviewsModal = (show) => {
+            const modal = document.getElementById('reviews-modal');
+            const content = document.getElementById('modal-content');
+            const grid = document.getElementById('modal-reviews-grid');
+            
+            if(show) {
+                if(grid.children.length === 0) {
+                    generateBigList();
+                }
+                modal.classList.remove('hidden');
+                // Trigger reflow
+                void modal.offsetWidth;
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+                document.body.style.overflow = 'hidden';
+            } else {
+                modal.classList.add('opacity-0');
+                content.classList.add('scale-95', 'opacity-0');
+                content.classList.remove('scale-100', 'opacity-100');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        };
+        
+        const generateBigList = () => {
+            const grid = document.getElementById('modal-reviews-grid');
+            
+            // Data Arrays for authentic gamer feel
+            const names = ["Kyle", "Brandon", "Tyler", "Jason", "Connor", "Ryan", "Justin", "Austin", "Zach", "Kevin", "Matt", "Chris", "Josh", "Nick", "Alex", "Sam", "Jordan", "Caleb", "Ethan", "Noah", "Liam", "Mason", "Jacob", "William", "James", "Logang", "Shadow", "Viper", "Raze", "Fade", "Omen", "Jett", "Reyna", "Yoru", "Neon", "Sova", "Breach", "Kayo", "Skye", "Cypher", "Killjoy", "Sage", "Astra", "Harbor", "Gekko", "Deadlock", "Iso", "Clove", "Drift", "Spectre"];
+            const initials = names.map(n => n.substring(0,2).toUpperCase());
+            
+            const openers = ["Bro honestly", "No cap", "Literally", "Hands down", "Ngl", "Actually insane", "Holy shit", "Fr fr", "Yo", "Legit", "Been using this since wipe", "Lowkey", "Straight up", "Just saying", "Can't lie", "Bruh", "Omg", "Finally found it", "Best one yet"];
+            
+            const middles = [
+                "the overlay is so clean", "aimbot looks fully legit", "haven't been banned in 4 months", "support helped me in like 2 mins", "setup was instant", "admin overlay saved my base", "prediction is beaming", "spoofer actually works", "optimization is cracked", "visuals are beautiful", "aim practice is disgusting", "recoil script is perfect", "clutched so many raids", "radar is a lifesaver", "never going back to other providers", "FPS doesn't even drop", "menu looks so clean", "getting called a beamer constantly", "undetect for 3 wipes straight"
+            ];
+            
+            const closers = [
+                "recommending to everyone", "buying lifetime rn", "best tool on the market", "10/10 experience", "W software", "absolutely goated", "worth every penny", "ez wins", "keeps me safe", "don't hesitate just buy it", "security is top tier", "insane value", "gameplay feels smooth", "cheating is fun again", "just buy it trust me"
+            ];
+            
+            const products = ["Roblox &#8226; Lifetime", "Roblox &#8226; Month", "Roblox &#8226; Week", "Roblox &#8226; Day", "Rust &#8226; Lifetime", "Rust &#8226; Month", "Rust &#8226; Week", "Rust &#8226; Day", "Spoofer &#8226; Lifetime", "Spoofer &#8226; Month"];
+            
+            const styles = [
+                { color: "cyan", bg: "from-cyan-900/40 to-cyan-950", text: "text-cyan-400", border: "hover:border-cyan-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(34,211,238,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(6,182,212,0.1)]" },
+                { color: "purple", bg: "from-purple-900/40 to-purple-950", text: "text-purple-400", border: "hover:border-purple-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(192,132,252,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(168,85,247,0.1)]" },
+                { color: "emerald", bg: "from-emerald-900/40 to-emerald-950", text: "text-emerald-400", border: "hover:border-emerald-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(52,211,153,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.1)]" },
+                { color: "blue", bg: "from-blue-900/40 to-blue-950", text: "text-blue-400", border: "hover:border-blue-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(96,165,250,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.1)]" },
+                { color: "orange", bg: "from-orange-900/40 to-orange-950", text: "text-orange-400", border: "hover:border-orange-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(251,146,60,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(251,146,60,0.1)]" },
+                { color: "indigo", bg: "from-indigo-900/40 to-indigo-950", text: "text-indigo-400", border: "hover:border-indigo-500/30", shadow: "shadow-[0_0_15px_-3px_rgba(129,140,248,0.15)]", glow: "hover:shadow-[0_0_40px_-10px_rgba(99,102,241,0.1)]" }
+            ];
+
+            // Generate 100 cards
+            for(let i=0; i<100; i++) {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const style = styles[Math.floor(Math.random() * styles.length)];
+                const product = products[Math.floor(Math.random() * products.length)];
+                const initial = name.substring(0, (Math.random() > 0.5 ? 2 : 1)).toUpperCase() + (Math.random() > 0.5 ? "" : ".");
+                
+                const opener = openers[Math.floor(Math.random() * openers.length)];
+                const middle = middles[Math.floor(Math.random() * middles.length)];
+                const closer = closers[Math.floor(Math.random() * closers.length)];
+                const text = `"${opener}, ${middle}. ${closer}."`;
+                
+                const div = document.createElement('div');
+                div.className = `tilt-card group border-white/[0.06] ${style.border} transition-all duration-300 hover:-translate-y-1 ${style.glow} border rounded-2xl px-6 py-6 relative bg-[#0A0A0A]`;
+                
+                div.innerHTML = `
+                    <div class="glare absolute inset-0 z-20 rounded-2xl"></div>
+                    <div class="absolute inset-0 bg-gradient-to-b from-white/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none"></div>
+                    <div class="relative z-10 tilt-inner">
+                        <div class="flex items-start justify-between mb-5">
+                            <div class="flex items-center gap-3.5">
+                                 <div class="w-10 h-10 rounded-full bg-gradient-to-br ${style.bg} flex items-center justify-center text-xs font-bold ${style.text} ring-1 ring-white/10 ${style.shadow} group-hover:scale-105 transition-transform duration-500">${initial}</div>
+                                 <div>
+                                    <div class="text-sm font-medium text-white group-hover:text-${style.color}-50 transition-colors">${name}</div>
+                                    <div class="text-[10px] uppercase tracking-wider font-semibold text-slate-500 group-hover:text-${style.color}-500/50 transition-colors">${product}</div>
+                                 </div>
+                            </div>
+                            <div class="text-slate-800 group-hover:text-${style.color}-500/20 transition-colors duration-500">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 16.6569 20.6739 18 19.017 18H16.017C15.4647 18 15.017 18.4477 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.6569 11.6735 18 10.0166 18H7.0166C6.46432 18 6.0166 18.4477 6.0166 19V21H5.0166Z"></path></svg>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors duration-300">${text}</p>
+                        <div class="mt-5 pt-4 border-t border-white/5 flex items-center gap-2">
+                            <div class="flex items-center gap-1.5 bg-emerald-500/5 border border-emerald-500/10 px-2 py-1 rounded text-[10px] font-semibold text-emerald-400/90 tracking-tight">
+                                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Verified Purchase
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(div);
+            }
+            
+            initTilt(grid);
+        };
+    })();
+    </script>
+</div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-[#020617] border-white/5 border-b pt-24 pb-24" id="faq">
+      
+    <div class="animate-on-scroll mb-32">
+          <div class="flex flex-col items-center text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/20 border border-emerald-500/10 text-emerald-400 text-[11px] font-medium tracking-wide uppercase mb-6 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+              <span class="relative flex h-1.5 w-1.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              </span>
+              <span class="">Live Status</span>
+            </div>
+            <h2 class="md:text-4xl text-3xl font-medium text-white tracking-tighter mb-4">
+              System Status
+            </h2>
+            <p class="text-slate-400 text-base font-light">
+              Real-time detection status for all products.
+            </p>
+          </div>
+          <div class="flex flex-col gap-3 max-w-3xl mx-auto">
+            <!-- Rust -->
+            <div class="group flex hover:border-emerald-500/20 hover:bg-[#0A0A0A] transition-all duration-300 hover:shadow-[0_0_30px_-10px_rgba(16,185,129,0.1)] cursor-default border-white/5 border rounded-xl px-4 py-4 relative items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/20 transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" data-lucide="shield-check">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    <path d="m9 12 2 2 4-4" class=""></path>
+                  </svg>
+                </div>
+                <div class="">
+                  <div class="text-sm font-medium text-white group-hover:text-emerald-50 transition-colors">
+                    Rust
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Version 1.0
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6 md:gap-12">
+                <div class="hidden sm:flex flex-col items-end">
+                  <span class="text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                    Updated
+                  </span>
+                  <span class="text-[11px] text-slate-300 font-mono">
+                    Today
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 pl-6 border-l border-white/5 h-8">
+                  <div class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wide">
+                    undetect
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Arc Raiders -->
+            <div class="group flex hover:border-emerald-500/20 hover:bg-[#0A0A0A] transition-all duration-300 hover:shadow-[0_0_30px_-10px_rgba(16,185,129,0.1)] cursor-default border-white/5 border rounded-xl px-4 py-4 relative items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/20 transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" data-lucide="shield-check">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </div>
+                <div class="">
+                  <div class="text-sm font-medium text-white group-hover:text-emerald-50 transition-colors">
+                    Arc Raiders
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Version 1.0
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6 md:gap-12">
+                <div class="hidden sm:flex flex-col items-end">
+                  <span class="text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                    Updated
+                  </span>
+                  <span class="text-[11px] text-slate-300 font-mono">
+                    2 hours ago
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 pl-6 border-l border-white/5 h-8">
+                  <div class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wide">
+                    undetect
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Roblox -->
+            <div class="group flex hover:border-emerald-500/20 hover:bg-[#0A0A0A] transition-all duration-300 hover:shadow-[0_0_30px_-10px_rgba(16,185,129,0.1)] cursor-default border-white/5 border rounded-xl px-4 py-4 relative items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/20 transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[20px] h-[20px]" data-lucide="shield-check">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </div>
+                <div class="">
+                  <div class="text-sm font-medium text-white group-hover:text-emerald-50 transition-colors">
+                    Roblox
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Version 1.0
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6 md:gap-12">
+                <div class="hidden sm:flex flex-col items-end">
+                  <span class="text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                    Updated
+                  </span>
+                  <span class="text-[11px] text-slate-300 font-mono">
+                    4 hours ago
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 pl-6 border-l border-white/5 h-8">
+                  <div class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wide">
+                    undetect
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!-- Spoofer -->
+            <div class="group flex hover:border-emerald-500/20 hover:bg-[#0A0A0A] transition-all duration-300 hover:shadow-[0_0_30px_-10px_rgba(16,185,129,0.1)] cursor-default border-white/5 border rounded-xl px-4 py-4 relative items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-white/[0.02] border border-white/[0.05] flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:border-emerald-500/20 transition-all duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="" data-lucide="shield-check" style="color: rgb(52, 211, 153);">
+                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                  </svg>
+                </div>
+                <div class="">
+                  <div class="text-sm font-medium text-white group-hover:text-emerald-50 transition-colors">
+                    Spoofer
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-medium">
+                    Version 1.0
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-6 md:gap-12">
+                <div class="hidden sm:flex flex-col items-end">
+                  <span class="text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                    Updated
+                  </span>
+                  <span class="text-[11px] text-slate-300 font-mono">
+                    Today
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 pl-6 border-l border-white/5 h-8">
+                  <div class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wide">
+                    undetect
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><div class="max-w-5xl mr-auto ml-auto pr-6 pl-6">
+        <!-- Section 1: System Status -->
+        
+        <!-- Divider to Separate Sections -->
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent mb-32 hidden md:block"></div>
+        <!-- Section 2: FAQ -->
+        <div class="animate-on-scroll relative">
+          <style class="">
+            details>div { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1); } details[open]>div { grid-template-rows: 1fr; } details>div>div { overflow: hidden; } summary::-webkit-details-marker { display: none; } summary { list-style: none; }
+          </style>
+          <div class="text-center mb-20">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/20 border border-cyan-500/20 text-cyan-400 text-[11px] font-medium tracking-wide uppercase mb-6 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="help-circle">
+                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3m.08 4h.01"></path>
+                </g>
+              </svg>
+              <span class="">Support Center</span>
+            </div>
+            <h2 class="md:text-5xl text-4xl font-medium text-white tracking-tighter mb-6">
+              Frequently Asked Questions
+            </h2>
+            <p class="text-slate-400 text-lg font-light max-w-xl mx-auto leading-relaxed">
+              Everything you need to know about our products, billing, and
+              security.
+            </p>
+          </div>
+          <div class="divide-y divide-white/5 md:px-8 max-w-3xl border-white/5 border rounded-2xl mx-auto px-6 backdrop-blur-sm bg-white/[0.02]">
+            <!-- Q1 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  Are your cheats safe to use?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  Our cheats are designed with security as a top priority, utilizing various techniques and
+                  regular updates. However, no cheat can be guaranteed 100% risk-free. Always use them
+                  responsibly and follow our guidelines.
+                </div>
+              </div>
+            </details>
+            <!-- Q2 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  How do I install the cheats?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  After purchase you'll receive a step-by-step guide. Simply run our loader, log-in, pick your
+                  product, and you're ready to play—no complex setup required.
+                </div>
+              </div>
+            </details>
+            <!-- Q3 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  What payment methods do you accept?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  We accept all major cards and several
+                  cryptocurrencies. All transactions are processed securely via
+                  our payment partner.
+                </div>
+              </div>
+            </details>
+            <!-- Q4 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  What if I need help or have issues?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  Our support team is available 24/7 on Discord and email. We
+                  also maintain extensive written guides for common questions.
+                </div>
+              </div>
+            </details>
+            <!-- Q5 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  Do you offer refunds?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6" class=""></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  Refunds are available when our product does not function as
+                  advertised and our support team cannot resolve the issue.
+                </div>
+              </div>
+            </details>
+            <!-- Q6 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  What is a Spoofer?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  A Hardware-ID spoofer temporarily changes unique identifiers
+                  of your PC. This helps prevent hardware bans and gives you a
+                  clean slate in supported games.
+                </div>
+              </div>
+            </details>
+            <!-- Q7 -->
+            <details class="group">
+              <summary class="flex items-center justify-between cursor-pointer py-6 text-white transition-all duration-300 outline-none group-hover:text-cyan-400 select-none">
+                <span class="text-base md:text-lg font-medium tracking-tight">
+                  How often are the cheats updated?
+                </span>
+                <span class="text-slate-600 transition-transform duration-300 group-open:rotate-180 group-open:text-cyan-400 group-hover:text-cyan-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="" style="" data-icon-set="lucide" data-lucide="chevron-down">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="text-slate-400 text-sm md:text-base leading-relaxed">
+                <div class="min-h-0 pb-6 pr-4">
+                  We monitor game patches daily and push silent updates whenever
+                  required. Critical updates usually ship within a few hours of
+                  a game update.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div></div>
+    <!-- Footer -->
+    <section class="overflow-hidden bg-[#020617] relative">
+      <!-- Ambient Background Glow -->
+      <div class="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-t from-cyan-900/20 via-cyan-900/5 to-transparent pointer-events-none blur-3xl"></div>
+      <div class="max-w-7xl mx-auto relative z-10 border-x border-white/5 bg-[#020617]/50 backdrop-blur-sm">
+        <!-- Top Section: Brand & Socials -->
+        <div class="grid grid-cols-1 md:grid-cols-2 border-b border-white/5">
+          <!-- Brand -->
+          <div class="p-8 md:p-12 md:pr-24 border-b md:border-b-0 md:border-r border-white/5 relative group">
+            <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-sky-400 to-cyan-400">
+              Neko-Project
+            </h2>
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed font-light max-w-sm">
+              The leading provider for high-quality, undetect game
+              enhancements. Secure your advantage today.
+            </p>
+          </div>
+          <!-- Socials -->
+          <div class="md:p-12 flex md:justify-end gap-6 pt-8 pr-8 pb-8 pl-8 gap-x-6 gap-y-6 items-center">
+            <a href="https://discord.com/invite/amjwejHC3Q" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center hover:border-cyan-500/50 hover:bg-cyan-500/10 hover:text-cyan-400 transition-all duration-300 group text-white w-14 h-14 border-white/10 border rounded-lg cursor-pointer" role="button"><iconify-icon icon="ic:baseline-discord" width="24" class="group-hover:scale-110 transition-transform"></iconify-icon>
+            </a>
+            </div>
+        </div>
+        <!-- Middle Section: Navigation -->
+        <!-- Bottom Section: Copyright -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 md:px-8 md:py-10 text-xs md:text-sm text-slate-500 font-light">
+          <div class="flex items-center">
+            &copy; 2026 Neko-Project. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </section>
+  
+</body>
+
+</html>
+
+
+
+

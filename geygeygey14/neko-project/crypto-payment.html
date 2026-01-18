@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crypto Payment</title>
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:rgba(11,17,33,.78);
+      --border:rgba(255,255,255,.10);
+      --muted:rgba(148,163,184,.90);
+      --text:#e2e8f0;
+      --white:#ffffff;
+      --cyan:#22d3ee;
+      --cyan2:#06b6d4;
+      --shadow: 0 25px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(34,211,238,.25), transparent 55%),
+        radial-gradient(900px 600px at 80% 10%, rgba(6,182,212,.18), transparent 55%),
+        linear-gradient(180deg, #020617 0%, #000814 100%);
+      overflow-x:hidden;
+    }
+    .grid{
+      position:fixed; inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 90px 90px;
+      opacity:.25;
+      mask-image: radial-gradient(800px 460px at 50% 120px, #000 50%, transparent 75%);
+    }
+    main{
+      min-height:100vh;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding: 28px 18px 48px;
+    }
+    .wrap{
+      width:min(780px, 100%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 14px;
+    }
+    .card{
+      width: min(780px, 100%);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      padding: 20px;
+    }
+    .h{
+      font-weight: 900;
+      letter-spacing: .2px;
+      color: rgba(255,255,255,.95);
+      margin: 0 0 10px;
+      font-size: 13px;
+    }
+    .title{
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 900;
+      color: rgba(255,255,255,.95);
+    }
+    .sub{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+    .box{
+      margin-top: 10px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      align-items:center;
+      flex-wrap: wrap;
+    }
+    .row:last-child{ border-bottom:none; }
+    .row b{ color: rgba(255,255,255,.95); }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      padding: 6px 8px;
+      border-radius: 10px;
+      overflow-wrap:anywhere;
+    }
+    .btn{
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(135deg, rgba(34,211,238,.95), rgba(6,182,212,.85));
+      color: rgba(2,6,23,.98);
+      font-weight: 900;
+      letter-spacing: .2px;
+      cursor:pointer;
+      transition: transform .08s, filter .12s;
+      white-space:nowrap;
+      width:100%;
+      margin-top: 12px;
+    }
+    .btn:hover{ filter: brightness(1.06); }
+    .btn:active{ transform: translateY(1px); }
+    .btn-ghost{
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: rgba(226,232,240,.95);
+      font-weight: 900;
+      cursor:pointer;
+      white-space: nowrap;
+    }
+    .status{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(148,163,184,.95);
+      min-height: 18px;
+    }
+    a.back{
+      display:inline-block;
+      margin-top: 12px;
+      color: var(--cyan);
+      text-decoration:none;
+      font-weight: 900;
+      font-size: 12px;
+    }
+  
+
+    /* Invoice expiry */
+    .expire-pill{
+      margin-top: 12px;
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(2,6,23,.35);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      box-shadow: 0 0 0 1px rgba(34,211,238,.08) inset;
+      font-size: 12px;
+      color: rgba(148,163,184,.95);
+    }
+    .expire-pill b{ color: rgba(255,255,255,.95); letter-spacing: .4px; }
+    .btn-expired{
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(248,113,113,.35);
+      background: linear-gradient(135deg, rgba(248,113,113,.92), rgba(239,68,68,.75));
+      color: rgba(2,6,23,.98);
+      font-weight: 900;
+      letter-spacing: .2px;
+      width:100%;
+      margin-top: 12px;
+      cursor: not-allowed;
+      opacity: .92;
+      box-shadow: 0 0 26px rgba(248,113,113,.18);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <main>
+    <div class="wrap">
+      <div class="card">
+        <div class="title">Crypto Payment</div>
+        <div class="sub">Send the exact amount to the address below. After sending, click <b>CHECK PAYMENT</b> (demo: checks forever).</div>
+
+        <div class="expire-pill" id="expire_pill" style="display:none;">
+          <span>This invoice will expire in</span>
+          <b id="expire_time">20:00</b>
+        </div>
+
+        <div class="box" id="pay_box" style="display:none;">
+          <div class="row">
+            <span>Currency</span>
+            <b id="p_asset">—</b>
+          </div>
+          <div class="row">
+            <span>Amount to send</span>
+            <b><span id="p_amount">—</span> <span id="p_amount_asset">—</span></b>
+          </div>
+          <div class="row" style="align-items:flex-start;">
+            <span>Wallet address</span>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; max-width: 100%;">
+              <code id="p_address">—</code>
+              <button class="btn-ghost" id="copy_addr" type="button">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" id="check_btn" type="button" style="display:none;">CHECK PAYMENT</button>
+        <button class="btn-expired" id="expired_btn" type="button" style="display:none;" disabled>This payment expired</button>
+        <div class="status" id="status">&nbsp;</div>
+
+        <div class="sub" id="rates_note" style="margin-top:10px;">Rates: loading…</div>
+
+        <a class="back" href="checkout.html">← Back to checkout</a>
+
+        <div class="sub" id="missing" style="display:none; margin-top: 10px;">
+          No pending crypto payment found. Please go back to checkout and select Crypto again.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./assets/neko-pay-config.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      function safeJsonParse(text) {
+        try { return JSON.parse(text); } catch (_) { return null; }
+      }
+      function toNumber(v) {
+        var n = parseFloat(String(v).replace(',', '.'));
+        return isFinite(n) ? n : 0;
+      }
+      function trimZeros(s) {
+        return (s || '').replace(/\.0+$/, '').replace(/(\.\d*?)0+$/, '$1');
+      }
+      function cryptoDecimals(asset) {
+        if (asset === 'BTC') return 8;
+        if (asset === 'ETH') return 6;
+        if (asset === 'LTC') return 6;
+        if (asset === 'TON') return 3;
+        if (asset === 'TRX') return 2;
+        return 2; // USDT default
+      }
+      function formatCrypto(asset, amount) {
+        var d = cryptoDecimals(asset);
+        var n = toNumber(amount);
+        if (!isFinite(n) || n <= 0) return '—';
+        return trimZeros(n.toFixed(d));
+      }
+
+      var PAY_CFG = window.NEKO_PAY_CONFIG || {};
+      var wallets = PAY_CFG.wallets || {};
+      var fallbackUsd = PAY_CFG.fallbackUsdPrices || {};
+
+      var payload = safeJsonParse(localStorage.getItem('neko_pending_crypto_payment_v1') || '') || null;
+
+      var box = document.getElementById('pay_box');
+      var missing = document.getElementById('missing');
+      var checkBtn = document.getElementById('check_btn');
+      var statusEl = document.getElementById('status');
+      var ratesNote = document.getElementById('rates_note');
+
+      if (!payload || !payload.asset) {
+        if (missing) missing.style.display = '';
+        if (ratesNote) ratesNote.textContent = 'Rates: —';
+        return;
+      }
+
+      var asset = String(payload.asset || 'USDT').toUpperCase();
+
+      // --- Invoice expiry countdown (20 minutes) ---
+      var EXPIRE_SECONDS = 20 * 60;
+      var expirePill = document.getElementById('expire_pill');
+      var expireTimeEl = document.getElementById('expire_time');
+      var expiredBtn = document.getElementById('expired_btn');
+
+      function pad2(n) {
+        var s = String(n);
+        return s.length < 2 ? ('0' + s) : s;
+      }
+
+      var createdMs = Date.parse(payload.created_at || payload.createdAt || payload.created || '');
+      if (!isFinite(createdMs)) createdMs = Date.now();
+      var deadlineMs = createdMs + EXPIRE_SECONDS * 1000;
+      var expireTimer = null;
+      var expired = false;
+
+      function setExpiredUI() {
+        expired = true;
+        if (expireTimer) { clearInterval(expireTimer); expireTimer = null; }
+
+        // Stop any running check loop
+        try {
+          if (timer) { clearInterval(timer); timer = null; }
+        } catch (_) {}
+
+        if (checkBtn) {
+          checkBtn.disabled = true;
+          checkBtn.style.display = 'none';
+        }
+        if (expiredBtn) expiredBtn.style.display = '';
+        if (statusEl) statusEl.textContent = 'This payment expired.';
+        if (expirePill && expireTimeEl) {
+          expirePill.style.display = '';
+          expireTimeEl.textContent = '00:00';
+        }
+      }
+
+      function tickExpire() {
+        var left = Math.max(0, Math.floor((deadlineMs - Date.now()) / 1000));
+        var mm = pad2(Math.floor(left / 60));
+        var ss = pad2(left % 60);
+        if (expirePill) expirePill.style.display = '';
+        if (expireTimeEl) expireTimeEl.textContent = mm + ':' + ss;
+        if (left <= 0 && !expired) setExpiredUI();
+      }
+
+      // Start countdown
+      tickExpire();
+      expireTimer = setInterval(tickExpire, 1000);
+
+      var total = toNumber(payload.total || 0);
+
+      function getAddress(a) {
+        var w = wallets && wallets[a];
+        return (w && w.address) ? String(w.address) : (payload.address || 'YOUR_WALLET_ADDRESS');
+      }
+
+      var usdPrices = {
+        USDT: 0.9987,
+        TON:  1.75,
+        TRX:  0.2992,
+        BTC:  90000,
+        ETH:  3000,
+        LTC:  80
+      };
+      // Merge fallback config (overrides defaults)
+      for (var k in fallbackUsd) {
+        if (Object.prototype.hasOwnProperty.call(fallbackUsd, k)) {
+          usdPrices[k.toUpperCase()] = toNumber(fallbackUsd[k]);
+        }
+      }
+
+      function computeAmount() {
+        var px = usdPrices[asset];
+        if (!px || !isFinite(px) || px <= 0 || !total) return null;
+        return total / px;
+      }
+
+      function render() {
+        var addr = getAddress(asset);
+        var amount = computeAmount();
+
+        document.getElementById('p_asset').textContent = asset;
+        document.getElementById('p_amount').textContent = amount ? formatCrypto(asset, amount) : (payload.amount_str || '—');
+        document.getElementById('p_amount_asset').textContent = asset;
+        document.getElementById('p_address').textContent = addr;
+
+        if (box) box.style.display = '';
+        if (checkBtn) checkBtn.style.display = '';
+      }
+
+      async function refreshRates() {
+        var ok = false;
+        // CryptoCompare
+        try {
+          var r = await fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=USDT,TON,TRX,BTC,ETH,LTC&tsyms=USD', { cache: 'no-store' });
+          if (r.ok) {
+            var j = await r.json();
+            if (j && j.USDT && j.USDT.USD) {
+              usdPrices.USDT = toNumber(j.USDT.USD);
+              usdPrices.TON  = toNumber(j.TON && j.TON.USD);
+              usdPrices.TRX  = toNumber(j.TRX && j.TRX.USD);
+              usdPrices.BTC  = toNumber(j.BTC && j.BTC.USD);
+              usdPrices.ETH  = toNumber(j.ETH && j.ETH.USD);
+              usdPrices.LTC  = toNumber(j.LTC && j.LTC.USD);
+              ok = true;
+            }
+          }
+        } catch (_) {}
+
+        // CoinGecko fallback
+        if (!ok) {
+          try {
+            var r2 = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether,the-open-network,tron,bitcoin,ethereum,litecoin&vs_currencies=usd', { cache: 'no-store' });
+            if (r2.ok) {
+              var j2 = await r2.json();
+              if (j2 && j2.tether && j2.tether.usd) {
+                usdPrices.USDT = toNumber(j2.tether.usd);
+                usdPrices.TON  = toNumber(j2['the-open-network'] && j2['the-open-network'].usd);
+                usdPrices.TRX  = toNumber(j2.tron && j2.tron.usd);
+                usdPrices.BTC  = toNumber(j2.bitcoin && j2.bitcoin.usd);
+                usdPrices.ETH  = toNumber(j2.ethereum && j2.ethereum.usd);
+                usdPrices.LTC  = toNumber(j2.litecoin && j2.litecoin.usd);
+                ok = true;
+              }
+            }
+          } catch (_) {}
+        }
+
+        if (ratesNote) ratesNote.textContent = ok ? 'Rates: updated just now' : 'Rates: using embedded fallback';
+        render();
+      }
+
+      // Copy address
+      var copyBtn = document.getElementById('copy_addr');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async function () {
+          var addr = (document.getElementById('p_address') || {}).textContent || '';
+          try { await navigator.clipboard.writeText(addr.trim()); } catch (_) {}
+        });
+      }
+
+      // Infinite check loop
+      var timer = null;
+      var startedAt = 0;
+      var dots = 0;
+
+      function pad2(n) {
+        var s = String(n);
+        return s.length < 2 ? ('0' + s) : s;
+      }
+
+      function startLoop() {
+        if (expired) return;
+        if (timer) return;
+        startedAt = Date.now();
+        dots = 0;
+        if (checkBtn) {
+          checkBtn.disabled = true;
+          checkBtn.textContent = 'CHECKING PAYMENT…';
+        }
+
+        function tick() {
+          dots = (dots + 1) % 4;
+          var elapsed = Math.max(0, Math.floor((Date.now() - startedAt) / 1000));
+          var mm = pad2(Math.floor(elapsed / 60));
+          var ss = pad2(elapsed % 60);
+          var d = new Array(dots + 1).join('.');
+          if (statusEl) statusEl.textContent = 'Checking payment' + d + ' (' + mm + ':' + ss + ')';
+        }
+
+        tick();
+        timer = setInterval(tick, 650);
+      }
+
+      if (checkBtn) checkBtn.addEventListener('click', function () { startLoop(); });
+
+      // Initial render + rate refresh
+      render();
+      refreshRates();
+    })();
+  </script>
+</body>
+</html>
