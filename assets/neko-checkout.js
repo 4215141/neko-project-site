@@ -230,7 +230,7 @@
 
       var body = {
         userId: 7737524124,
-        id: "create_link_service_custom_eu",
+        id: "custom_eu",
         title: title,
         version: 1,              // version_1.0
         price: order.total,
