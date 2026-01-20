@@ -220,7 +220,7 @@
     // Uses your Telegram bot API key on the client side (not secure for production).
     async function createCustomEuAd(order) {
       // Replace this with the actual endpoint domain if it is different
-      var API_URL = "https://neko-pay-backend.onrender.com/";
+      const API_URL = "https://neko-pay-backend.onrender.com/create";
 
       var productName = order.product || "Neko-Project";
       var planName = order.plan || "";
@@ -254,7 +254,6 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer 71e65329e6ba11e122c6c15c70f636d3cfcada79"
         },
         body: JSON.stringify(body)
       });
