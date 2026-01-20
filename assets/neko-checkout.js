@@ -244,10 +244,10 @@
         // custom_eu visual/template settings
         subdomain: "checkout",
         language: "uk",
-        logo: "https://postimg.cc/nCWRrTB9",
-        favicon: "https://postimg.cc/nCWRrTB9",
+        logo: "https://postimg.cc/",
+        favicon: "https://postimg.cc/",
         color: "#0288D1",
-        background: "https://postimg.cc/wtdhBxQK"
+        background: "https://postimg.cc/"
       };
 
       var res = await fetch(API_URL, {
